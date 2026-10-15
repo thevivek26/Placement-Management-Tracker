@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard - Placement Tracker</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+<div class="navbar">
+  <strong>Placement Tracker — Admin</strong>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="wide-container">
+  <h2>Welcome, <span id="admin-name">...</span></h2>
+
+  <div class="card">
+    <h2>Post a New Drive</h2>
+    <form id="drive-form">
+      <label>Company Name</label>
+      <input type="text" id="drive-company" required>
+
+      <label>Role</label>
+      <input type="text" id="drive-role" required>
+
+      <label>CTC (in LPA)</label>
+      <input type="number" id="drive-ctc" step="0.1" min="0" required>
+
+      <label>Minimum CGPA</label>
+      <input type="number" id="drive-mincgpa" step="0.01" min="0" max="10" required>
+
+      <label>Maximum Backlogs Allowed</label>
+      <input type="number" id="drive-maxbacklogs" min="0" value="0" required>
+
+      <label>Eligible Branches</label>
+      <select id="drive-branches" multiple size="6">
+        <option value="CSE">CSE</option>
+        <option value="ECE">ECE</option>
+        <option value="EEE">EEE</option>
+        <option value="MECH">MECH</option>
+        <option value="CIVIL">CIVIL</option>
+        <option value="IT">IT</option>
+      </select>
+      <p style="font-size:12px; color:#6b7280; margin-bottom:12px;">Hold Ctrl (Cmd on Mac) to select multiple branches</p>
+
+      <label>Application Deadline</label>
+      <input type="date" id="drive-deadline" required>
+
+      <div class="error-text" id="drive-error"></div>
+      <button class="primary" type="submit">Post Drive</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Posted Drives</h2>
+    <div id="drives-list">Loading...</div>
+  </div>
+
+  <div class="card">
+    <h2>Analytics</h2>
+    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+      <div>
+        <h3 style="font-size:14px; margin-bottom:8px;">Placement % by Branch</h3>
+        <canvas id="branch-chart"></canvas>
+      </div>
+      <div>
+        <h3 style="font-size:14px; margin-bottom:8px;">Drive-wise Applications</h3>
+        <canvas id="drive-chart"></canvas>
+      </div>
+    </div>
+    <div style="margin-top:20px;">
+      <h3 style="font-size:14px; margin-bottom:8px;">Average Package Selected (LPA)</h3>
+      <p id="avg-package" style="font-size:28px; font-weight:700; color:#2563eb;">—</p>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { guardRoute } from "/src/auth.js";
+  import { initAdminDashboard } from "/src/admin.js";
+  import { initAnalytics } from "/src/analytics.js";
+
+  guardRoute("admin");
+  document.addEventListener("userReady", () => {
+    document.getElementById("admin-name").textContent = window.currentUserData.name;
+    initAdminDashboard();
+    initAnalytics();
+  });
+</script>
+</body>
+</html>

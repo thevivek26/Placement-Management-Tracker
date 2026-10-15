@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Placement Tracker - Login</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+<div class="container">
+  <h1>Placement Tracker</h1>
+
+  <div class="tabs">
+    <button class="tab-btn active" id="tab-login">Login</button>
+    <button class="tab-btn" id="tab-signup">Sign Up</button>
+  </div>
+
+  <div class="form-panel active" id="panel-login">
+    <form id="login-form">
+      <label>Email</label>
+      <input type="email" id="login-email" required>
+      <label>Password</label>
+      <input type="password" id="login-password" required>
+      <div class="error-text" id="login-error"></div>
+      <button class="primary" type="submit">Login</button>
+    </form>
+  </div>
+
+  <div class="form-panel" id="panel-signup">
+    <form id="signup-form">
+      <label>Full Name</label>
+      <input type="text" id="signup-name" required>
+
+      <label>Email</label>
+      <input type="email" id="signup-email" required>
+
+      <label>Password</label>
+      <input type="password" id="signup-password" required minlength="6">
+
+      <label>Role</label>
+      <select id="signup-role">
+        <option value="student">Student</option>
+        <option value="admin">Admin (Placement Cell)</option>
+      </select>
+
+      <div id="student-fields">
+        <label>Branch</label>
+        <select id="signup-branch">
+          <option>CSE</option>
+          <option>ECE</option>
+          <option>EEE</option>
+          <option>MECH</option>
+          <option>CIVIL</option>
+          <option>IT</option>
+        </select>
+
+        <label>CGPA</label>
+        <input type="number" id="signup-cgpa" step="0.01" min="0" max="10" value="7.0">
+
+        <label>Active Backlogs</label>
+        <input type="number" id="signup-backlogs" min="0" value="0">
+      </div>
+
+      <div class="error-text" id="signup-error"></div>
+      <button class="primary" type="submit">Create Account</button>
+    </form>
+  </div>
+</div>
+
+<script type="module" src="/src/auth.js"></script>
+
+<script>
+  const tabLogin = document.getElementById("tab-login");
+  const tabSignup = document.getElementById("tab-signup");
+  const panelLogin = document.getElementById("panel-login");
+  const panelSignup = document.getElementById("panel-signup");
+
+  tabLogin.addEventListener("click", () => {
+    tabLogin.classList.add("active"); tabSignup.classList.remove("active");
+    panelLogin.classList.add("active"); panelSignup.classList.remove("active");
+  });
+  tabSignup.addEventListener("click", () => {
+    tabSignup.classList.add("active"); tabLogin.classList.remove("active");
+    panelSignup.classList.add("active"); panelLogin.classList.remove("active");
+  });
+</script>
+</body>
+</html>

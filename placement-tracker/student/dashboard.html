@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Student Dashboard - Placement Tracker</title>
+<link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+<div class="navbar">
+  <strong>Placement Tracker — Student</strong>
+  <button onclick="logout()">Logout</button>
+</div>
+
+<div class="wide-container">
+  <h2>Welcome, <span id="student-name">...</span></h2>
+  <div class="card">
+    <p>Branch: <span id="student-branch"></span> | CGPA: <span id="student-cgpa"></span> | Backlogs: <span id="student-backlogs"></span></p>
+  </div>
+
+  <div class="card">
+    <h2>Available Drives</h2>
+    <div id="drives-list">Loading...</div>
+  </div>
+
+  <div class="card">
+    <h2>My Applications</h2>
+    <div id="my-applications">Loading...</div>
+  </div>
+</div>
+
+<script type="module">
+  import { guardRoute } from "/src/auth.js";
+  import { initStudentDashboard } from "/src/student.js";
+
+  guardRoute("student");
+  document.addEventListener("userReady", () => {
+    const d = window.currentUserData;
+    document.getElementById("student-name").textContent = d.name;
+    document.getElementById("student-branch").textContent = d.branch;
+    document.getElementById("student-cgpa").textContent = d.cgpa;
+    document.getElementById("student-backlogs").textContent = d.backlogs;
+    initStudentDashboard();
+  });
+</script>
+</body>
+</html>
